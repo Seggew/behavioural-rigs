@@ -7,7 +7,7 @@ from datetime import datetime
 import socket
 
 experiment_duration = 300
-Framerate = 1
+Framerate = 10
 rig_name = socket.getfqdn()
 
 #exp='Test'
@@ -44,9 +44,9 @@ GPIO.output(yellow_led,GPIO.LOW)
 
 #Setup the camera prefences
 camera = PiCamera()
-camera.resolution = (1200, 1200)
+camera.resolution = (1800, 1100)
 camera.framerate = 20
-camera.rotation = -90
+camera.rotation = 90
 camera.framerate = Framerate
 #camera.color_effects=(128,128) #Black and white
 
@@ -60,13 +60,14 @@ def shut_down():
     print(output)
 
 video_counter = 1
+
 while True:
     #short delay, otherwise this code will take up a lot of the Pi's processing power
-    time.sleep(0.2)
+    time.sleep(0.1)
 
     if GPIO.input(record_pin)==False:
         GPIO.output(red_led,GPIO.HIGH) # Red LED ON to indicate the device is recording
-        camera.start_preview(alpha=180)
+        camera.start_preview(alpha=220)
         
         #Labels the recording year-month-day_hour-minute-second
         date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
